@@ -1,0 +1,7 @@
+@mixin container{
+  padding: $spacer;
+  background-color: $background-surface;
+  border: $border-surface-width solid $border-surface;
+  border-radius: calc($spacer / 2);
+  box-shadow: $box-shadow;
+}

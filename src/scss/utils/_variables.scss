@@ -1,6 +1,26 @@
 $background: #e7e7e7;
+$background-surface: #d9d9d9;
+$border-surface: #b2b2b2;
+$border-surface-width: 1px;
+
 $primary: #e86e1e;
 
 
+$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
 $spacer: 1rem; //16px set by @typography.scss
 
+$text-gray-500:#494949;
+
+//HEADER
+
+$header-min-height: 44px;
+$header-min-height-lg: 56px;
+
+//LOCATION DATA
+
+$location-data-max-width: 320px;
+
+
+//BREAKPOINTS
+$md: 768px;

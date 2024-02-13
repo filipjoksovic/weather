@@ -1,19 +1,22 @@
 app-header{
-  min-height: 44px; //TODO move to variable
+  min-height: $header-min-height;
   background-color: $primary;
   display: flex;
   align-content: center;
   width: 100%;
   position: sticky;
   top:0;
-
+  box-shadow: $box-shadow;
+  padding-inline: $spacer;
   & .header-title{
-    vertical-align: middle;
+    margin-block: auto;
+    font-weight: bold;
+    font-size: larger;
   }
 }
 
-@media only screen and (min-width: 768px) and (min-height: 768px){
+@media only screen and (min-width: $md) and (min-height: $md){
   app-header{
-    min-height: 56px; //TODO move to a variable
+    min-height: $header-min-height-lg;
   }
 }

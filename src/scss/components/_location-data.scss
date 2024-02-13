@@ -1,16 +1,18 @@
 app-location-data{
+  @include container;
   width: 100%;
-  max-width: 320px; //TODO move to a variable
-  border: 1px solid red;
+  max-width: $location-data-max-width;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   & .location-name{
     color: $primary;
+    text-align: center;
   }
 
   & .location-fetch-date{
-    color: #494949; //TODO move to a variable
+    color: $text-gray-500;
+    text-align: center;
+
   }
 }

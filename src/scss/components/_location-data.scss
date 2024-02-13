@@ -1,0 +1,16 @@
+app-location-data{
+  width: 100%;
+  max-width: 320px; //TODO move to a variable
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .location-name{
+    color: $primary;
+  }
+
+  & .location-fetch-date{
+    color: #494949; //TODO move to a variable
+  }
+}

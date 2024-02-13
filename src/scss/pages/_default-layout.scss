@@ -1,0 +1,40 @@
+app-default-layout{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+  gap:$spacer;
+  padding: $spacer;
+  width: 100%;
+  //max-width: 320px; // TODO move to a variable
+  margin: auto;
+}
+
+.measurements-container{
+  display: flex;
+  gap:$spacer ;
+  justify-content: space-around;
+  flex-grow: 1;
+  width: 100%;
+
+  & > *{
+    flex: 1;
+  }
+}
+
+@media only screen and (max-width: $location-data-max-width){
+  .measurements-container{
+    flex-direction: column;
+
+    > * {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: $md) and (min-height: $md){
+  app-default-layout{
+    $padding: $spacer * 2;
+  }
+}

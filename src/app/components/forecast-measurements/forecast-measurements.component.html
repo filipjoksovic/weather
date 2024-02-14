@@ -1,18 +1,11 @@
-<div>
-  <p>napoved 1</p>
-  <p>napoved 2</p>
-  <p>napoved 3</p>
-  <p>napoved 4</p>
-  <p>napoved 1</p>
-  <p>napoved 2</p>
-  <p>napoved 3</p>
-  <p>napoved 4</p>
-  <p>napoved 1</p>
-  <p>napoved 2</p>
-  <p>napoved 3</p>
-  <p>napoved 4</p>
-  <p>napoved 1</p>
-  <p>napoved 2</p>
-  <p>napoved 3</p>
-  <p>napoved 4</p>
-</div>
+<ng-container *ngIf="currentForecastState$ | async as currentForecast">
+  @if (currentForecast.state === LoadingState.LOADED) {
+    @for (forecast of currentForecast.data.measurements; track $index) {
+      <app-forecast-measurement
+        [measurement]="forecast"></app-forecast-measurement>
+    }
+  } @else if (currentForecast.state === LoadingState.LOADING) {
+  } @else if (currentForecast.state === LoadingState.ERROR) {
+    Error occured while fetching the forecast
+  }
+</ng-container>

@@ -1,28 +1,15 @@
-import { CurrentWeatherResponse } from './response/current-weather.response';
+import { CurrentWeatherResponse } from '../response/current-weather.response';
+import { DayDuration } from './day-duration.model';
+import { WeatherConditions } from './weather-conditions.model';
+import { WindDetails } from './wind-details.model';
+import { WeatherMeasurements } from './weather-measurements.model';
 
 export type CurrentWeather = {
   name: string;
-  weatherMeasurements: {
-    feelsLike: number;
-    humidity: number;
-    temperature: number;
-    temperatureMax: number;
-    temperatureMin: number;
-  };
-  dayDuration: {
-    sunrise: Date;
-    sunset: Date;
-  };
-  weatherConditions: {
-    description: string;
-    name: string;
-    icon: string;
-  };
-  wind: {
-    speed: number;
-    deg: number;
-    gust: number;
-  };
+  weatherMeasurements: WeatherMeasurements;
+  dayDuration: DayDuration;
+  weatherConditions: WeatherConditions;
+  wind: WindDetails;
 };
 
 /**

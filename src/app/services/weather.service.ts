@@ -5,7 +5,13 @@ import { CURRENT_RESPONSE } from '../../assets/MOCKS/current-weather-response.mo
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
-} from '../models/current-weather.model';
+} from '../models/app/current-weather.model';
+import { FORECAST_RESPONSE } from '../../assets/MOCKS/forecast-weather-response.mock';
+import {
+  ForecastWeather,
+  forecastWeatherResponseToForecastWeather,
+} from '../models/app/forecast-weather.model';
+import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
 
 export enum LoadingState {
   INITIAL = 'INITIAL',
@@ -59,6 +65,13 @@ export class WeatherService {
 
   public readonly currentWeather$ = this._currentWeather$.asObservable();
 
+  private readonly _forecast$: BehaviorSubject<LoadableData<ForecastWeather>> =
+    new BehaviorSubject<LoadableData<ForecastWeather>>(
+      initialLoadableDataState()
+    );
+
+  public readonly forecast$ = this._forecast$.asObservable();
+
   constructor(private readonly httpClient: HttpClient) {}
 
   public getCurrentWeather() {
@@ -110,5 +123,53 @@ export class WeatherService {
       .subscribe();
   }
 
-  public getForecast() {}
+  public getForecast() {
+    this._forecast$.next({
+      state: LoadingState.LOADING,
+    });
+    // return this.httpClient
+    //   .get(
+    //     `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
+    //   )
+    //   .pipe(
+    //     tap(console.log),
+    //     tap({
+    //       next: response => {
+    //         this._forecast$.next({
+    //           state: LoadingState.LOADED,
+    //           data: response,
+    //         });
+    //       },
+    //       error: err => {
+    //         this._forecast$.next({
+    //           state: LoadingState.ERROR,
+    //         });
+    //       },
+    //     }),
+    //     take(1)
+    //   )
+    //   .subscribe();
+
+    return of(FORECAST_RESPONSE)
+      .pipe(
+        // delay(2000),
+        map(forecastWeatherResponseToForecastWeather),
+        map(removeThreeHourIntervals),
+        tap({
+          next: response => {
+            this._forecast$.next({
+              state: LoadingState.LOADED,
+              data: response,
+            });
+          },
+          error: () => {
+            this._forecast$.next({
+              state: LoadingState.ERROR,
+            });
+          },
+        }),
+        take(1)
+      )
+      .subscribe();
+  }
 }

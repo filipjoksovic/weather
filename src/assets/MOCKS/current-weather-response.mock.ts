@@ -1,4 +1,6 @@
-export const CURRENT_RESPONSE = {
+import { CurrentWeatherResponse } from '../../app/models/response/current-weather.response';
+
+export const CURRENT_RESPONSE: CurrentWeatherResponse = {
   coord: { lon: 15.6467, lat: 46.5547 },
   weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
   base: 'stations',

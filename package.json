@@ -50,6 +50,7 @@
     "dotenv": "^16.4.4",
     "eslint-plugin-html": "^8.0.0",
     "is-ci": "^3.0.1",
+    "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.3.0",

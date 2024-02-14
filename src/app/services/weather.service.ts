@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, delay, map, of, Subject, take, tap } from 'rxjs';
-import { CURRENT_RESPONSE } from '../../assets/MOCKS/current-weather-response.mock';
+import { BehaviorSubject, map, Subject, take, tap } from 'rxjs';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
 } from '../models/app/current-weather.model';
-import { FORECAST_RESPONSE } from '../../assets/MOCKS/forecast-weather-response.mock';
 import {
   ForecastWeather,
   forecastWeatherResponseToForecastWeather,
 } from '../models/app/forecast-weather.model';
 import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StorageService } from './storage.service';
+import { StorageKeysEnum } from '../models/core/storage-keys.enum';
+import { environment } from '../../environments/environment';
+import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
+import { CurrentWeatherResponse } from '../models/response/current-weather.response';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum LoadingState {
   INITIAL = 'INITIAL',
@@ -87,7 +91,16 @@ export class WeatherService {
 
   public readonly forecast$ = this._forecast$.asObservable();
 
-  constructor(private readonly httpClient: HttpClient) {
+  private cached = {
+    [StorageKeysEnum.CURRENT_WEATHER]: true,
+    [StorageKeysEnum.FORECAST_WEATHER]: true,
+  };
+
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly storageService: StorageService,
+    private readonly translate: TranslateService
+  ) {
     this._reload$.pipe(takeUntilDestroyed()).subscribe(reloadAction => {
       switch (reloadAction) {
         case WeatherReloadAction.ALL:
@@ -105,41 +118,29 @@ export class WeatherService {
           break;
       }
     });
+
+    this.loadCurrentWeatherFromStorage();
+    this.loadForecastFromStorage();
   }
 
   public getCurrentWeather() {
-    this._currentWeather$.next({
-      state: LoadingState.LOADING,
-    });
-    // return this.httpClient
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
-    //   )
-    //   .pipe(
-    //     map(currentWeatherResponseToCurrentWeather),
-    //     tap({
-    //       next: response => {
-    //         this._currentWeather$.next({
-    //           state: LoadingState.LOADED,
-    //           data: response,
-    //         });
-    //       },
-    //       error: err => {
-    //         this._currentWeather$.next({
-    //           state: LoadingState.ERROR,
-    //         });
-    //       },
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe();
-
-    return of(CURRENT_RESPONSE)
+    console.log('called');
+    if (!this.cached[StorageKeysEnum.CURRENT_WEATHER]) {
+      this._currentWeather$.next({
+        state: LoadingState.LOADING,
+      });
+    } else {
+      this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
+    }
+    return this.httpClient
+      .get<CurrentWeatherResponse>(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+      )
       .pipe(
-        delay(2000),
         map(currentWeatherResponseToCurrentWeather),
         tap({
           next: response => {
+            this.storageService.set(StorageKeysEnum.CURRENT_WEATHER, response);
             this._currentWeather$.next({
               state: LoadingState.LOADED,
               data: response,
@@ -158,39 +159,24 @@ export class WeatherService {
 
   public getForecast() {
     console.log('getting forecast');
-    this._forecast$.next({
-      state: LoadingState.LOADING,
-    });
-    // return this.httpClient
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
-    //   )
-    //   .pipe(
-    //     tap(console.log),
-    //     tap({
-    //       next: response => {
-    //         this._forecast$.next({
-    //           state: LoadingState.LOADED,
-    //           data: response,
-    //         });
-    //       },
-    //       error: err => {
-    //         this._forecast$.next({
-    //           state: LoadingState.ERROR,
-    //         });
-    //       },
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe();
+    if (!this.cached[StorageKeysEnum.FORECAST_WEATHER]) {
+      this._forecast$.next({
+        state: LoadingState.LOADING,
+      });
+    } else {
+      this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
+    }
 
-    return of(FORECAST_RESPONSE)
+    return this.httpClient
+      .get<ForecastWeatherResponse>(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+      )
       .pipe(
-        // delay(2000),
         map(forecastWeatherResponseToForecastWeather),
         map(removeThreeHourIntervals),
         tap({
           next: response => {
+            this.storageService.set(StorageKeysEnum.FORECAST_WEATHER, response);
             this._forecast$.next({
               state: LoadingState.LOADED,
               data: response,
@@ -209,5 +195,31 @@ export class WeatherService {
 
   dispatchReload() {
     this._reload$.next(WeatherReloadAction.ALL);
+  }
+
+  private loadCurrentWeatherFromStorage() {
+    const currentWeather = this.storageService.get<CurrentWeather>(
+      StorageKeysEnum.CURRENT_WEATHER
+    );
+    if (currentWeather) {
+      this._currentWeather$.next({
+        state: LoadingState.LOADED,
+        data: currentWeather,
+      });
+      this.cached[StorageKeysEnum.CURRENT_WEATHER] = true;
+    }
+  }
+
+  private loadForecastFromStorage() {
+    const forecast = this.storageService.get<ForecastWeather>(
+      StorageKeysEnum.FORECAST_WEATHER
+    );
+    if (forecast) {
+      this._forecast$.next({
+        state: LoadingState.LOADED,
+        data: forecast,
+      });
+      this.cached[StorageKeysEnum.FORECAST_WEATHER] = true;
+    }
   }
 }

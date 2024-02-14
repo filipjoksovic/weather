@@ -27,6 +27,6 @@
       </div>
     </div>
   } @else if (currentWeather.state === LoadingState.ERROR) {
-    Error occured when fetching weather
+    {{ 'CURRENT_WEATHER.MEASUREMENT.ERROR_MESSAGE' | translate }}
   }
 </ng-container>

@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, delay, map, of, Subject, take, tap } from 'rxjs';
-import { CURRENT_RESPONSE } from '../../assets/MOCKS/current-weather-response.mock';
+import { BehaviorSubject, map, Subject, take, tap } from 'rxjs';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
 } from '../models/app/current-weather.model';
-import { FORECAST_RESPONSE } from '../../assets/MOCKS/forecast-weather-response.mock';
 import {
   ForecastWeather,
   forecastWeatherResponseToForecastWeather,
@@ -15,6 +13,10 @@ import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StorageService } from './storage.service';
 import { StorageKeysEnum } from '../models/core/storage-keys.enum';
+import { environment } from '../../environments/environment';
+import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
+import { CurrentWeatherResponse } from '../models/response/current-weather.response';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum LoadingState {
   INITIAL = 'INITIAL',
@@ -96,7 +98,8 @@ export class WeatherService {
 
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private readonly translate: TranslateService
   ) {
     this._reload$.pipe(takeUntilDestroyed()).subscribe(reloadAction => {
       switch (reloadAction) {
@@ -129,32 +132,11 @@ export class WeatherService {
     } else {
       this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
     }
-    // return this.httpClient
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
-    //   )
-    //   .pipe(
-    //     map(currentWeatherResponseToCurrentWeather),
-    //     tap({
-    //       next: response => {
-    //         this._currentWeather$.next({
-    //           state: LoadingState.LOADED,
-    //           data: response,
-    //         });
-    //       },
-    //       error: err => {
-    //         this._currentWeather$.next({
-    //           state: LoadingState.ERROR,
-    //         });
-    //       },
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe();
-
-    return of(CURRENT_RESPONSE)
+    return this.httpClient
+      .get<CurrentWeatherResponse>(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+      )
       .pipe(
-        delay(2000),
         map(currentWeatherResponseToCurrentWeather),
         tap({
           next: response => {
@@ -184,32 +166,12 @@ export class WeatherService {
     } else {
       this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
     }
-    // return this.httpClient
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
-    //   )
-    //   .pipe(
-    //     tap(console.log),
-    //     tap({
-    //       next: response => {
-    //         this._forecast$.next({
-    //           state: LoadingState.LOADED,
-    //           data: response,
-    //         });
-    //       },
-    //       error: err => {
-    //         this._forecast$.next({
-    //           state: LoadingState.ERROR,
-    //         });
-    //       },
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe();
 
-    return of(FORECAST_RESPONSE)
+    return this.httpClient
+      .get<ForecastWeatherResponse>(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+      )
       .pipe(
-        delay(2000),
         map(forecastWeatherResponseToForecastWeather),
         map(removeThreeHourIntervals),
         tap({

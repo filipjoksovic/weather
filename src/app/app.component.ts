@@ -19,7 +19,7 @@ export class AppComponent {
   title = 'Weather';
 
   constructor(private readonly translate: TranslateService) {
-    this.translate.setDefaultLang('si');
-    this.translate.use('si');
+    this.translate.setDefaultLang('sl');
+    this.translate.use('sl');
   }
 }

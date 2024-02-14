@@ -9,7 +9,7 @@
   alt="Weather icon" />
 <p class="measurement-date">{{ measurement.dateTime | dateFormat }}</p>
 <p class="measurement-weather-name" data-testid="weather-description">
-  {{ measurement.weatherConditions.name }}
+  {{ measurement.weatherConditions.description }}
 </p>
 <p class="temperature-data__minimum" data-testid="weather-min-temp">
   <fa-icon [icon]="faArrowDown"></fa-icon>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
@@ -93,9 +93,19 @@ export class WeatherService {
     } else {
       this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
     }
+
+    const params: HttpParams = new HttpParams().appendAll({
+      lat: 46.55472,
+      lon: 15.64667,
+      appid: environment.openWeatherMapsApiKey,
+      units: 'metric',
+      lang: this.translate.currentLang,
+    });
+
     return this.httpClient
       .get<CurrentWeatherResponse>(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+        `https://api.openweathermap.org/data/2.5/weather`,
+        { params }
       )
       .pipe(
         map(currentWeatherResponseToCurrentWeather),
@@ -127,9 +137,18 @@ export class WeatherService {
       this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
     }
 
+    const params: HttpParams = new HttpParams().appendAll({
+      lat: 46.55472,
+      lon: 15.64667,
+      appid: environment.openWeatherMapsApiKey,
+      units: 'metric',
+      lang: this.translate.currentLang,
+    });
+
     return this.httpClient
       .get<ForecastWeatherResponse>(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+        `https://api.openweathermap.org/data/2.5/forecast`,
+        { params }
       )
       .pipe(
         map(forecastWeatherResponseToForecastWeather),

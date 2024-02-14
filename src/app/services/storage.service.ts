@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 export class StorageService {
   private readonly storage: Storage = localStorage;
 
-  constructor() {}
-
   public set(key: string, value: string | object) {
     try {
       this.storage.setItem(key, JSON.stringify(value));

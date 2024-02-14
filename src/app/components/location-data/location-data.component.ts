@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { filter, map, tap, zip } from 'rxjs';
+import { filter, map, zip } from 'rxjs';
 
 import { LoadingState } from '../../models/core/loading-state.enum';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
@@ -27,7 +27,6 @@ export class LocationDataComponent {
   );
 
   dataLoaded$ = zip([this.currentWeatherLoaded$, this.forecastLoaded$]).pipe(
-    tap(console.log),
     map(() => new Date())
   );
 

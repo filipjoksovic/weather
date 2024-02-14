@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { WeatherService } from '../../../services/weather.service';
 
 @Component({
   selector: 'app-current-measurement',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './current-measurement.component.html',
 })
-export class CurrentMeasurementComponent {}
+export class CurrentMeasurementComponent {
+  private readonly weatherService: WeatherService = inject(WeatherService);
+
+  constructor() {
+    this.weatherService.getCurrentWeather();
+  }
+}

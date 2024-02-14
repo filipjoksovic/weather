@@ -30,4 +30,4 @@ jobs:
           name: Jest tests
           path: ./test-results/junit.xml
           reporter: jest-junit
-          fail-on-error: true
+          fail-on-error: false

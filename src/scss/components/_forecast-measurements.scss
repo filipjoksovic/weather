@@ -13,7 +13,7 @@ app-forecast-measurement {
   width: 100%;
   grid-template-areas:"icon  weather-condition weather-condition date"
                        "temp-min temp-min temp-max temp-max";
-  gap: $spacer / 2;
+  gap: calc($spacer / 2);
   align-items: center;
   justify-content: start; //todo align to center when on smaller screens
 
@@ -44,7 +44,7 @@ app-forecast-measurement {
     &__minimum {
       grid-area: temp-min;
       display: flex;
-      gap: $spacer/2;
+      gap: calc($spacer/2);
       align-items: center;
       justify-content: center;
     }
@@ -52,7 +52,7 @@ app-forecast-measurement {
     &__maximum {
       grid-area: temp-max;
       display: flex;
-      gap: $spacer/2;
+      gap: calc($spacer/2);
       align-items: center;
       justify-content: center;
 

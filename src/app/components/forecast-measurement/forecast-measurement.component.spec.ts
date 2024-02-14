@@ -1,11 +1,41 @@
-import { ForecastMeasurementComponent } from './forecast-measurement.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   byTestId,
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { ForecastMeasurement } from '../../models/app/forecast-weather.model';
+import { ForecastMeasurementComponent } from './forecast-measurement.component';
+
+function initComponent(spectator: Spectator<ForecastMeasurementComponent>) {
+  spectator.setInput('measurement', {
+    dateTime: new Date(),
+    weatherMeasurements: {
+      feelsLike: 1,
+      humidity: 1,
+      temperature: 1,
+      temperatureMax: 2,
+      temperatureMin: 3,
+    },
+    dayDuration: {
+      sunrise: new Date(),
+      sunset: new Date(),
+    },
+    weatherConditions: {
+      description: 'Test description',
+      name: 'Test',
+      icon: 'test-icon',
+    },
+    wind: {
+      speed: 1,
+      deg: 1,
+      gust: 1,
+    },
+  } as ForecastMeasurement);
+  spectator.detectChanges();
+  spectator.detectComponentChanges();
+}
 
 describe('ForecastMeasurementComponent', () => {
   let spectator: Spectator<ForecastMeasurementComponent>;
@@ -51,32 +81,3 @@ describe('ForecastMeasurementComponent', () => {
     expect(weatherMinTemperature).toHaveText('3');
   });
 });
-
-function initComponent(spectator: Spectator<ForecastMeasurementComponent>) {
-  spectator.setInput('measurement', {
-    dateTime: new Date(),
-    weatherMeasurements: {
-      feelsLike: 1,
-      humidity: 1,
-      temperature: 1,
-      temperatureMax: 2,
-      temperatureMin: 3,
-    },
-    dayDuration: {
-      sunrise: new Date(),
-      sunset: new Date(),
-    },
-    weatherConditions: {
-      description: 'Test description',
-      name: 'Test',
-      icon: 'test-icon',
-    },
-    wind: {
-      speed: 1,
-      deg: 1,
-      gust: 1,
-    },
-  } as ForecastMeasurement);
-  spectator.detectChanges();
-  spectator.detectComponentChanges();
-}

@@ -1,6 +1,12 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, map, Subject, take, tap } from 'rxjs';
+
+import { environment } from '../../environments/environment';
+import { exhaustiveTypeCheck } from '../helpers/exhaustive-type-check';
+import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
@@ -9,64 +15,20 @@ import {
   ForecastWeather,
   forecastWeatherResponseToForecastWeather,
 } from '../models/app/forecast-weather.model';
-import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { StorageService } from './storage.service';
+import {
+  initialLoadableDataState,
+  LoadableData,
+} from '../models/core/loadable-data.model';
+import { LoadingState } from '../models/core/loading-state.enum';
 import { StorageKeysEnum } from '../models/core/storage-keys.enum';
-import { environment } from '../../environments/environment';
-import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
 import { CurrentWeatherResponse } from '../models/response/current-weather.response';
-import { TranslateService } from '@ngx-translate/core';
-
-export enum LoadingState {
-  INITIAL = 'INITIAL',
-  LOADING = 'LOADING',
-  LOADED = 'LOADED',
-  ERROR = 'ERROR',
-  EMPTY = 'EMPTY',
-}
-
-export type LoadableDataInitial = {
-  state: LoadingState.INITIAL;
-};
-
-export type LoadbleDataLoading = {
-  state: LoadingState.LOADING;
-};
-
-export type LoadableDataLoaded<T> = {
-  state: LoadingState.LOADED;
-  data: T;
-};
-
-export type LoadableDataError = {
-  state: LoadingState.ERROR;
-};
-
-export type LoadableDataEmpty = {
-  state: LoadingState.EMPTY;
-};
-
-export type LoadableData<T> =
-  | LoadableDataEmpty
-  | LoadableDataError
-  | LoadableDataInitial
-  | LoadableDataLoaded<T>
-  | LoadbleDataLoading;
+import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
+import { StorageService } from './storage.service';
 
 export enum WeatherReloadAction {
   ALL = 'ALL',
   CURRENT = 'CURRENT',
   FORECAST = 'FORECAST',
-}
-
-export const initialLoadableDataState = (): LoadableDataInitial => ({
-  state: LoadingState.INITIAL,
-});
-
-function exhaustiveTypeCheck(reloadAction: never) {
-  console.error(`Provided value ${reloadAction} is not a supported value`);
-  return reloadAction;
 }
 
 @Injectable({
@@ -124,7 +86,6 @@ export class WeatherService {
   }
 
   public getCurrentWeather() {
-    console.log('called');
     if (!this.cached[StorageKeysEnum.CURRENT_WEATHER]) {
       this._currentWeather$.next({
         state: LoadingState.LOADING,
@@ -132,9 +93,19 @@ export class WeatherService {
     } else {
       this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
     }
+
+    const params: HttpParams = new HttpParams().appendAll({
+      lat: 46.55472,
+      lon: 15.64667,
+      appid: environment.openWeatherMapsApiKey,
+      units: 'metric',
+      lang: this.translate.currentLang,
+    });
+
     return this.httpClient
       .get<CurrentWeatherResponse>(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+        `https://api.openweathermap.org/data/2.5/weather`,
+        { params }
       )
       .pipe(
         map(currentWeatherResponseToCurrentWeather),
@@ -158,7 +129,6 @@ export class WeatherService {
   }
 
   public getForecast() {
-    console.log('getting forecast');
     if (!this.cached[StorageKeysEnum.FORECAST_WEATHER]) {
       this._forecast$.next({
         state: LoadingState.LOADING,
@@ -167,9 +137,18 @@ export class WeatherService {
       this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
     }
 
+    const params: HttpParams = new HttpParams().appendAll({
+      lat: 46.55472,
+      lon: 15.64667,
+      appid: environment.openWeatherMapsApiKey,
+      units: 'metric',
+      lang: this.translate.currentLang,
+    });
+
     return this.httpClient
       .get<ForecastWeatherResponse>(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric&lang=${this.translate.currentLang}`
+        `https://api.openweathermap.org/data/2.5/forecast`,
+        { params }
       )
       .pipe(
         map(forecastWeatherResponseToForecastWeather),

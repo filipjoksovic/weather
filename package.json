@@ -9,6 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
     "prettier": "npx prettier --write .",
@@ -29,7 +30,12 @@
         "tsConfig": "<rootDir>/tsconfig.spec.json",
         "stringifyContentPathRegex": "\\.html$"
       }
-    }
+    },
+    "reporters": ["default", "jest-junit"]
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results",
+    "outputName": "junit.xml"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +56,7 @@
     "dotenv": "^16.4.4",
     "eslint-plugin-html": "^8.0.0",
     "is-ci": "^3.0.1",
+    "jest-junit": "^16.0.0",
     "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "ts-node": "^10.9.2",

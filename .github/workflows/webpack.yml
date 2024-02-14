@@ -16,3 +16,12 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Jest tests
+          path: ./test-results/junit.xml
+          reporter: jest-junit
+          fail-on-error: true

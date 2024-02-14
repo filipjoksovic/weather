@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { combineLatestWith, filter, map, tap } from 'rxjs';
+import { filter, map, tap, zip } from 'rxjs';
 import { LoadingState, WeatherService } from '../../services/weather.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
@@ -23,11 +23,12 @@ export class LocationDataComponent {
     filter(state => state.state === LoadingState.LOADED)
   );
 
-  dataLoaded$ = this.currentWeatherLoaded$.pipe(
-    combineLatestWith(this.forecastLoaded$),
+  dataLoaded$ = zip([this.currentWeatherLoaded$, this.forecastLoaded$]).pipe(
     tap(console.log),
     map(() => new Date())
   );
 
-  reloadData() {}
+  reloadData() {
+    this.weatherService.dispatchReload();
+  }
 }

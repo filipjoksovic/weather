@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, delay, map, of, take, tap } from 'rxjs';
+import { BehaviorSubject, delay, map, of, Subject, take, tap } from 'rxjs';
 import { CURRENT_RESPONSE } from '../../assets/MOCKS/current-weather-response.mock';
 import {
   CurrentWeather,
@@ -12,6 +12,7 @@ import {
   forecastWeatherResponseToForecastWeather,
 } from '../models/app/forecast-weather.model';
 import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export enum LoadingState {
   INITIAL = 'INITIAL',
@@ -49,14 +50,28 @@ export type LoadableData<T> =
   | LoadableDataLoaded<T>
   | LoadbleDataLoading;
 
+export enum WeatherReloadAction {
+  ALL = 'ALL',
+  CURRENT = 'CURRENT',
+  FORECAST = 'FORECAST',
+}
+
 export const initialLoadableDataState = (): LoadableDataInitial => ({
   state: LoadingState.INITIAL,
 });
+
+function exhaustiveTypeCheck(reloadAction: never) {
+  console.error(`Provided value ${reloadAction} is not a supported value`);
+  return reloadAction;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
+  private readonly _reload$: Subject<WeatherReloadAction> =
+    new Subject<WeatherReloadAction>();
+
   private readonly _currentWeather$: BehaviorSubject<
     LoadableData<CurrentWeather>
   > = new BehaviorSubject<LoadableData<CurrentWeather>>(
@@ -72,7 +87,25 @@ export class WeatherService {
 
   public readonly forecast$ = this._forecast$.asObservable();
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient) {
+    this._reload$.pipe(takeUntilDestroyed()).subscribe(reloadAction => {
+      switch (reloadAction) {
+        case WeatherReloadAction.ALL:
+          this.getForecast();
+          this.getCurrentWeather();
+          break;
+        case WeatherReloadAction.FORECAST:
+          this.getForecast();
+          break;
+        case WeatherReloadAction.CURRENT:
+          this.getCurrentWeather();
+          break;
+        default:
+          exhaustiveTypeCheck(reloadAction);
+          break;
+      }
+    });
+  }
 
   public getCurrentWeather() {
     this._currentWeather$.next({
@@ -124,6 +157,7 @@ export class WeatherService {
   }
 
   public getForecast() {
+    console.log('getting forecast');
     this._forecast$.next({
       state: LoadingState.LOADING,
     });
@@ -171,5 +205,9 @@ export class WeatherService {
         take(1)
       )
       .subscribe();
+  }
+
+  dispatchReload() {
+    this._reload$.next(WeatherReloadAction.ALL);
   }
 }

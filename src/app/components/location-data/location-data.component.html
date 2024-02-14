@@ -1,2 +1,11 @@
 <h1 class="location-name">Maribor</h1>
-<p class="location-fetch-date">Pridobljeno 21.10.2016</p>
+<ng-container *ngIf="dataLoaded$ | async as dataLoaded; else noDataReceived">
+  <p class="location-fetch-date">
+    Data received at {{ dataLoaded | dateFormat: 'DD/MM/YYYY HH:mm:ss' }}
+  </p>
+  <button (click)="reloadData()">Reload</button>
+</ng-container>
+
+<ng-template #noDataReceived>
+  <p>No data has been received yet</p>
+</ng-template>

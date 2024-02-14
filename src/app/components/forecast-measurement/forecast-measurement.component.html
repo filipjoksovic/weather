@@ -1,0 +1,21 @@
+<img
+  class="measurement-icon"
+  data-testid="weather-icon"
+  [src]="
+    'https://openweathermap.org/img/wn/' +
+    measurement.weatherConditions.icon +
+    '@2x.png'
+  "
+  alt="Weather icon" />
+<p class="measurement-date">{{ measurement.dateTime | dateFormat }}</p>
+<p class="measurement-weather-name" data-testid="weather-description">
+  {{ measurement.weatherConditions.name }}
+</p>
+<p class="temperature-data__minimum" data-testid="weather-min-temp">
+  <fa-icon [icon]="faArrowDown"></fa-icon>
+  {{ measurement.weatherMeasurements.temperatureMin }}
+</p>
+<p class="temperature-data__maximum" data-testid="weather-max-temp">
+  <fa-icon [icon]="faArrowUp"></fa-icon
+  >{{ measurement.weatherMeasurements.temperatureMax }}
+</p>

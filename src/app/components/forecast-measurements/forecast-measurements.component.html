@@ -1,0 +1,21 @@
+<ng-container *ngIf="currentForecastState$ | async as currentForecast">
+  @if (currentForecast.state === LoadingState.LOADED) {
+    <div data-testid="data-container">
+      @for (forecast of currentForecast.data.measurements; track $index) {
+        <app-forecast-measurement
+          [measurement]="forecast"></app-forecast-measurement>
+      }
+    </div>
+  } @else if (currentForecast.state === LoadingState.LOADING) {
+    <div data-testid="skeleton-container">
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+    </div>
+  } @else if (currentForecast.state === LoadingState.ERROR) {
+    Error occured while fetching the forecast
+  }
+</ng-container>

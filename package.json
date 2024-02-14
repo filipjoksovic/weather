@@ -4,15 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run config && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
     "prettier": "npx prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "config": "is-ci || ts-node set-env.ts"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -28,7 +30,12 @@
         "tsConfig": "<rootDir>/tsconfig.spec.json",
         "stringifyContentPathRegex": "\\.html$"
       }
-    }
+    },
+    "reporters": ["default", "jest-junit"]
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results",
+    "outputName": "junit.xml"
   },
   "private": true,
   "dependencies": {
@@ -40,8 +47,17 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
+    "@fortawesome/angular-fontawesome": "^0.14.1",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@ngneat/spectator": "^16.0.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.4",
     "eslint-plugin-html": "^8.0.0",
+    "is-ci": "^3.0.1",
+    "jest-junit": "^16.0.0",
+    "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.3.0",

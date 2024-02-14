@@ -1,11 +1,16 @@
 <h1 class="location-name">Maribor</h1>
 <ng-container *ngIf="dataLoaded$ | async as dataLoaded; else noDataReceived">
   <p class="location-fetch-date">
-    Data received at {{ dataLoaded | dateFormat: 'DD/MM/YYYY HH:mm:ss' }}
+    {{
+      'LOCATION_DATA.DATA_RECEIVED_LABEL'
+        | translate: { value: dataLoaded | dateFormat: 'DD/MM/YYYY HH:mm:ss' }
+    }}
   </p>
-  <button (click)="reloadData()">Reload</button>
+  <button (click)="reloadData()">
+    {{ 'GLOBAL.RELOAD_LABEL' | translate }}
+  </button>
 </ng-container>
 
 <ng-template #noDataReceived>
-  <p>No data has been received yet</p>
+  <p>{{ 'CURRENT_WEATHER.NO_WEATHER_MESSAGE' | translate }}</p>
 </ng-template>

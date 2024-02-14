@@ -31,7 +31,10 @@
         "stringifyContentPathRegex": "\\.html$"
       }
     },
-    "reporters": ["default", "jest-junit"]
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
   },
   "jest-junit": {
     "outputDirectory": "./test-results",
@@ -52,6 +55,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@ngneat/spectator": "^16.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "colors": "^1.4.0",
     "dotenv": "^16.4.4",
     "eslint-plugin-html": "^8.0.0",

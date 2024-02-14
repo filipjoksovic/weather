@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run config && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -12,7 +12,8 @@
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
     "prettier": "npx prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "config": "ts-node set-env.ts"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -41,6 +42,8 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "@ngneat/spectator": "^16.0.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.4",
     "eslint-plugin-html": "^8.0.0",
     "rxjs": "~7.8.0",
     "ts-node": "^10.9.2",

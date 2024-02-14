@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { LoadingState, WeatherService } from '../../services/weather.service';
+import { WeatherService } from '../../services/weather.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ForecastMeasurementComponent } from '../forecast-measurement/forecast-measurement.component';
 import { SkeletonComponent } from '../skeleton/skeleton.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoadingState } from '../../models/core/loading-state.enum';
 
 @Component({
   selector: 'app-forecast-measurements',

@@ -5,18 +5,18 @@ import {
   Spectator,
 } from '@ngneat/spectator/jest';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-  LoadableData,
-  LoadbleDataLoading,
-  LoadingState,
-  WeatherService,
-} from '../../services/weather.service';
+import { WeatherService } from '../../services/weather.service';
 import { of } from 'rxjs';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
 } from '../../models/app/current-weather.model';
 import { CURRENT_RESPONSE } from '../../../assets/MOCKS/current-weather-response.mock';
+import { LoadingState } from '../../models/core/loading-state.enum';
+import {
+  LoadableData,
+  LoadbleDataLoading,
+} from '../../models/core/loadable-data.model';
 
 describe('CurrentMeasurementComponent', () => {
   let spectator: Spectator<CurrentMeasurementComponent>;

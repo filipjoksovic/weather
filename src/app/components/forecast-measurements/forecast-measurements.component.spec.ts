@@ -5,11 +5,12 @@ import {
   Spectator,
 } from '@ngneat/spectator/jest';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoadingState, WeatherService } from '../../services/weather.service';
+import { WeatherService } from '../../services/weather.service';
 import { of } from 'rxjs';
 import { forecastWeatherResponseToForecastWeather } from '../../models/app/forecast-weather.model';
 import { FORECAST_RESPONSE } from '../../../assets/MOCKS/forecast-weather-response.mock';
 import { removeThreeHourIntervals } from '../../helpers/remove-three-hour-intervals';
+import { LoadingState } from '../../models/core/loading-state.enum';
 
 function initLoadingComponent(
   spectator: Spectator<ForecastMeasurementsComponent>

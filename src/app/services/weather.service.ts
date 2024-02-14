@@ -17,56 +17,17 @@ import { environment } from '../../environments/environment';
 import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
 import { CurrentWeatherResponse } from '../models/response/current-weather.response';
 import { TranslateService } from '@ngx-translate/core';
-
-export enum LoadingState {
-  INITIAL = 'INITIAL',
-  LOADING = 'LOADING',
-  LOADED = 'LOADED',
-  ERROR = 'ERROR',
-  EMPTY = 'EMPTY',
-}
-
-export type LoadableDataInitial = {
-  state: LoadingState.INITIAL;
-};
-
-export type LoadbleDataLoading = {
-  state: LoadingState.LOADING;
-};
-
-export type LoadableDataLoaded<T> = {
-  state: LoadingState.LOADED;
-  data: T;
-};
-
-export type LoadableDataError = {
-  state: LoadingState.ERROR;
-};
-
-export type LoadableDataEmpty = {
-  state: LoadingState.EMPTY;
-};
-
-export type LoadableData<T> =
-  | LoadableDataEmpty
-  | LoadableDataError
-  | LoadableDataInitial
-  | LoadableDataLoaded<T>
-  | LoadbleDataLoading;
+import { LoadingState } from '../models/core/loading-state.enum';
+import {
+  initialLoadableDataState,
+  LoadableData,
+} from '../models/core/loadable-data.model';
+import { exhaustiveTypeCheck } from '../helpers/exhaustive-type-check';
 
 export enum WeatherReloadAction {
   ALL = 'ALL',
   CURRENT = 'CURRENT',
   FORECAST = 'FORECAST',
-}
-
-export const initialLoadableDataState = (): LoadableDataInitial => ({
-  state: LoadingState.INITIAL,
-});
-
-function exhaustiveTypeCheck(reloadAction: never) {
-  console.error(`Provided value ${reloadAction} is not a supported value`);
-  return reloadAction;
 }
 
 @Injectable({
@@ -124,7 +85,6 @@ export class WeatherService {
   }
 
   public getCurrentWeather() {
-    console.log('called');
     if (!this.cached[StorageKeysEnum.CURRENT_WEATHER]) {
       this._currentWeather$.next({
         state: LoadingState.LOADING,
@@ -158,7 +118,6 @@ export class WeatherService {
   }
 
   public getForecast() {
-    console.log('getting forecast');
     if (!this.cached[StorageKeysEnum.FORECAST_WEATHER]) {
       this._forecast$.next({
         state: LoadingState.LOADING,

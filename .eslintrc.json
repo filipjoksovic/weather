@@ -1,15 +1,22 @@
 {
   "root": true,
   "ignorePatterns": [
+    "src/environments/**",
     "projects/**/*",
     "**/index.html"
   ],
+  "plugins": ["unused-imports", "simple-import-sort"],
   "overrides": [
     {
       "files": [
         "*.ts"
       ],
+      "parserOptions": {
+        "project": ["tsconfig.(app|prod|spec).json"]
+      },
       "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
@@ -17,6 +24,24 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
+        "no-underscore-dangle": "off",
+        "import/prefer-default-export": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+        "max-len": [
+          "error",
+          120
+        ],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "warn",
+          { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-explicit-any": 0,
         "@angular-eslint/directive-selector": [
           "error",
           {

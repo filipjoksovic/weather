@@ -1,22 +1,23 @@
-app-header{
+app-header {
   min-height: $header-min-height;
   background-color: $primary;
   display: flex;
   align-content: center;
   width: 100%;
   position: sticky;
-  top:0;
+  top: 0;
   box-shadow: $box-shadow;
   padding-inline: $spacer;
-  & .header-title{
+
+  & .header-title {
     margin-block: auto;
     font-weight: bold;
     font-size: larger;
   }
 }
 
-@media only screen and (min-width: $md) and (min-height: $md){
-  app-header{
+@media only screen and (min-width: $md) and (min-height: $md) {
+  app-header {
     min-height: $header-min-height-lg;
   }
 }

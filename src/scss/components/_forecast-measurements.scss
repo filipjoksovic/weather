@@ -1,19 +1,15 @@
 app-forecast-measurements {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @include flex-center-column;
   @include container;
 }
 
 
 app-forecast-measurement {
   display: grid;
-  flex-direction: column;
   width: 100%;
   grid-template-areas:"icon  weather-condition weather-condition date"
                        "temp-min temp-min temp-max temp-max";
-  gap: $spacer / 2;
+  gap: calc($spacer / 2);
   align-items: center;
   justify-content: start; //todo align to center when on smaller screens
 
@@ -43,19 +39,14 @@ app-forecast-measurement {
   & .temperature-data {
     &__minimum {
       grid-area: temp-min;
-      display: flex;
-      gap: $spacer/2;
-      align-items: center;
-      justify-content: center;
+      @include flex-center;
+      gap: calc($spacer / 2);
     }
 
     &__maximum {
       grid-area: temp-max;
-      display: flex;
-      gap: $spacer/2;
-      align-items: center;
-      justify-content: center;
-
+      @include flex-center;
+      gap: calc($spacer / 2);
     }
   }
 }
@@ -67,18 +58,17 @@ app-forecast-measurement {
     "weather-condition weather-condition"
     "date date"
     "temp-min temp-max";
-
     align-items: center;
     justify-content: center;
 
-    & .measurement-icon{
+    & .measurement-icon {
       display: block;
       margin: auto;
       width: 5rem;
       height: 5rem;
     }
 
-    & .measurement-date{
+    & .measurement-date {
       text-align: center;
     }
   }

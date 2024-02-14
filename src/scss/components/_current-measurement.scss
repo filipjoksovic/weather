@@ -1,8 +1,5 @@
 app-current-measurement{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @include flex-center-column;
   @include container;
 }
 

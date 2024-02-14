@@ -5,3 +5,21 @@ app-current-measurement{
   flex-direction: column;
   @include container;
 }
+
+.current-temperature{
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.current-description{
+  text-align: center;
+}
+
+.current-minimum{
+  text-align: center;
+}
+
+.current-maximum{
+  text-align: center;
+}

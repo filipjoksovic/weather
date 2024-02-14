@@ -1,0 +1,32 @@
+<ng-container *ngIf="currentWeatherState$ | async as currentWeather">
+  @if (currentWeather.state === LoadingState.LOADING) {
+    <div class="current-loading" data-testid="loading-container">
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+      <app-skeleton></app-skeleton>
+    </div>
+  } @else if (currentWeather.state === LoadingState.LOADED) {
+    <div data-testid="data-container">
+      <p class="current-temperature" data-testid="current-temperature">
+        {{ currentWeather.data.weatherMeasurements.temperature }}
+      </p>
+      <p class="current-description" data-testid="current-description">
+        {{ currentWeather.data.weatherConditions.description }}
+      </p>
+      <div class="flex gap-1">
+        <p class="current-minimum" data-testid="current-minimum">
+          <fa-icon [icon]="faArrowDown" />{{
+            currentWeather.data.weatherMeasurements.temperatureMin
+          }}
+        </p>
+        <p class="current-maximum" data-testid="current-maximum">
+          <fa-icon [icon]="faArrowUp"></fa-icon>
+          {{ currentWeather.data.weatherMeasurements.temperatureMax }}
+        </p>
+      </div>
+    </div>
+  } @else if (currentWeather.state === LoadingState.ERROR) {
+    Error occured when fetching weather
+  }
+</ng-container>

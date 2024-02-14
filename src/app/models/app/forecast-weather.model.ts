@@ -1,11 +1,11 @@
-import { WeatherMeasurements } from './weather-measurements.model';
-import { DayDuration } from './day-duration.model';
-import { WeatherConditions } from './weather-conditions.model';
-import { WindDetails } from './wind-details.model';
 import {
   ForecastWeatherMeasurementResponse,
   ForecastWeatherResponse,
 } from '../response/forecast-weather.response';
+import { DayDuration } from './day-duration.model';
+import { WeatherConditions } from './weather-conditions.model';
+import { WeatherMeasurements } from './weather-measurements.model';
+import { WindDetails } from './wind-details.model';
 
 export type ForecastWeather = {
   measurements: ForecastMeasurement[];

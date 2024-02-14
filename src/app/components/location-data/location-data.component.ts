@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { filter, map, tap, zip } from 'rxjs';
-import { WeatherService } from '../../services/weather.service';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { filter, map, tap, zip } from 'rxjs';
+
 import { LoadingState } from '../../models/core/loading-state.enum';
+import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'app-location-data',

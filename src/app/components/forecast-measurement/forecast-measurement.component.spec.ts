@@ -1,11 +1,12 @@
-import { ForecastMeasurementComponent } from './forecast-measurement.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   byTestId,
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { ForecastMeasurement } from '../../models/app/forecast-weather.model';
+import { ForecastMeasurementComponent } from './forecast-measurement.component';
 
 describe('ForecastMeasurementComponent', () => {
   let spectator: Spectator<ForecastMeasurementComponent>;

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class StorageService {
   private readonly storage: Storage = localStorage;
+
   constructor() {}
 
   public set(key: string, value: string | object) {
@@ -23,9 +24,8 @@ export class StorageService {
       const obj = this.storage.getItem(key);
       if (!obj) {
         return null;
-      } else {
-        return JSON.parse(obj) as T;
       }
+      return JSON.parse(obj) as T;
     } catch (error) {
       console.error(
         `Error occured while attempting to fetch data from localStorage`,

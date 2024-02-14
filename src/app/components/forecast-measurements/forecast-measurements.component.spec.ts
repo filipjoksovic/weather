@@ -1,16 +1,17 @@
-import { ForecastMeasurementsComponent } from './forecast-measurements.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   byTestId,
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { WeatherService } from '../../services/weather.service';
 import { of } from 'rxjs';
-import { forecastWeatherResponseToForecastWeather } from '../../models/app/forecast-weather.model';
+
 import { FORECAST_RESPONSE } from '../../../assets/MOCKS/forecast-weather-response.mock';
 import { removeThreeHourIntervals } from '../../helpers/remove-three-hour-intervals';
+import { forecastWeatherResponseToForecastWeather } from '../../models/app/forecast-weather.model';
 import { LoadingState } from '../../models/core/loading-state.enum';
+import { WeatherService } from '../../services/weather.service';
+import { ForecastMeasurementsComponent } from './forecast-measurements.component';
 
 function initLoadingComponent(
   spectator: Spectator<ForecastMeasurementsComponent>

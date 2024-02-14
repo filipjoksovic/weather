@@ -1,22 +1,23 @@
-import { CurrentMeasurementComponent } from './current-measurement.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   byTestId,
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { WeatherService } from '../../services/weather.service';
 import { of } from 'rxjs';
+
+import { CURRENT_RESPONSE } from '../../../assets/MOCKS/current-weather-response.mock';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
 } from '../../models/app/current-weather.model';
-import { CURRENT_RESPONSE } from '../../../assets/MOCKS/current-weather-response.mock';
-import { LoadingState } from '../../models/core/loading-state.enum';
 import {
   LoadableData,
   LoadbleDataLoading,
 } from '../../models/core/loadable-data.model';
+import { LoadingState } from '../../models/core/loading-state.enum';
+import { WeatherService } from '../../services/weather.service';
+import { CurrentMeasurementComponent } from './current-measurement.component';
 
 describe('CurrentMeasurementComponent', () => {
   let spectator: Spectator<CurrentMeasurementComponent>;

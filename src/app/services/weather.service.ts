@@ -1,6 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, map, Subject, take, tap } from 'rxjs';
+
+import { environment } from '../../environments/environment';
+import { exhaustiveTypeCheck } from '../helpers/exhaustive-type-check';
+import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
@@ -9,20 +15,15 @@ import {
   ForecastWeather,
   forecastWeatherResponseToForecastWeather,
 } from '../models/app/forecast-weather.model';
-import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { StorageService } from './storage.service';
-import { StorageKeysEnum } from '../models/core/storage-keys.enum';
-import { environment } from '../../environments/environment';
-import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
-import { CurrentWeatherResponse } from '../models/response/current-weather.response';
-import { TranslateService } from '@ngx-translate/core';
-import { LoadingState } from '../models/core/loading-state.enum';
 import {
   initialLoadableDataState,
   LoadableData,
 } from '../models/core/loadable-data.model';
-import { exhaustiveTypeCheck } from '../helpers/exhaustive-type-check';
+import { LoadingState } from '../models/core/loading-state.enum';
+import { StorageKeysEnum } from '../models/core/storage-keys.enum';
+import { CurrentWeatherResponse } from '../models/response/current-weather.response';
+import { ForecastWeatherResponse } from '../models/response/forecast-weather.response';
+import { StorageService } from './storage.service';
 
 export enum WeatherReloadAction {
   ALL = 'ALL',

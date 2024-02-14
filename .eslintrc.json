@@ -29,6 +29,9 @@
         "import/first": "error",
         "import/newline-after-import": "error",
         "import/no-duplicates": "error",
+        "no-console": ["error",{
+          "allow": ["warn","error"]
+        }],
         "max-len": [
           "error",
           120

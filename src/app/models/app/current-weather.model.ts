@@ -1,8 +1,8 @@
 import { CurrentWeatherResponse } from '../response/current-weather.response';
 import { DayDuration } from './day-duration.model';
 import { WeatherConditions } from './weather-conditions.model';
-import { WindDetails } from './wind-details.model';
 import { WeatherMeasurements } from './weather-measurements.model';
+import { WindDetails } from './wind-details.model';
 
 export type CurrentWeather = {
   name: string;

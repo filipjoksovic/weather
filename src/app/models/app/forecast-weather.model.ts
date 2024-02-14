@@ -27,8 +27,6 @@ export type ForecastMeasurement = {
 export const forecastWeatherResponseToForecastWeather = (
   response: ForecastWeatherResponse
 ): ForecastWeather => {
-  console.log(response);
-
   return {
     measurements: response.list.map(
       (

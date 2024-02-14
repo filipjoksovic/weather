@@ -13,6 +13,8 @@ import {
 } from '../models/app/forecast-weather.model';
 import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StorageService } from './storage.service';
+import { StorageKeysEnum } from '../models/core/storage-keys.enum';
 
 export enum LoadingState {
   INITIAL = 'INITIAL',
@@ -87,7 +89,15 @@ export class WeatherService {
 
   public readonly forecast$ = this._forecast$.asObservable();
 
-  constructor(private readonly httpClient: HttpClient) {
+  private cached = {
+    [StorageKeysEnum.CURRENT_WEATHER]: true,
+    [StorageKeysEnum.FORECAST_WEATHER]: true,
+  };
+
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly storageService: StorageService
+  ) {
     this._reload$.pipe(takeUntilDestroyed()).subscribe(reloadAction => {
       switch (reloadAction) {
         case WeatherReloadAction.ALL:
@@ -105,12 +115,20 @@ export class WeatherService {
           break;
       }
     });
+
+    this.loadCurrentWeatherFromStorage();
+    this.loadForecastFromStorage();
   }
 
   public getCurrentWeather() {
-    this._currentWeather$.next({
-      state: LoadingState.LOADING,
-    });
+    console.log('called');
+    if (!this.cached[StorageKeysEnum.CURRENT_WEATHER]) {
+      this._currentWeather$.next({
+        state: LoadingState.LOADING,
+      });
+    } else {
+      this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
+    }
     // return this.httpClient
     //   .get(
     //     `https://api.openweathermap.org/data/2.5/weather?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
@@ -140,6 +158,7 @@ export class WeatherService {
         map(currentWeatherResponseToCurrentWeather),
         tap({
           next: response => {
+            this.storageService.set(StorageKeysEnum.CURRENT_WEATHER, response);
             this._currentWeather$.next({
               state: LoadingState.LOADED,
               data: response,
@@ -158,9 +177,13 @@ export class WeatherService {
 
   public getForecast() {
     console.log('getting forecast');
-    this._forecast$.next({
-      state: LoadingState.LOADING,
-    });
+    if (!this.cached[StorageKeysEnum.FORECAST_WEATHER]) {
+      this._forecast$.next({
+        state: LoadingState.LOADING,
+      });
+    } else {
+      this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
+    }
     // return this.httpClient
     //   .get(
     //     `https://api.openweathermap.org/data/2.5/forecast?lat=${46.55472}&lon=${15.64667}&appid=${environment.openWeatherMapsApiKey}&units=metric`
@@ -186,11 +209,12 @@ export class WeatherService {
 
     return of(FORECAST_RESPONSE)
       .pipe(
-        // delay(2000),
+        delay(2000),
         map(forecastWeatherResponseToForecastWeather),
         map(removeThreeHourIntervals),
         tap({
           next: response => {
+            this.storageService.set(StorageKeysEnum.FORECAST_WEATHER, response);
             this._forecast$.next({
               state: LoadingState.LOADED,
               data: response,
@@ -209,5 +233,31 @@ export class WeatherService {
 
   dispatchReload() {
     this._reload$.next(WeatherReloadAction.ALL);
+  }
+
+  private loadCurrentWeatherFromStorage() {
+    const currentWeather = this.storageService.get<CurrentWeather>(
+      StorageKeysEnum.CURRENT_WEATHER
+    );
+    if (currentWeather) {
+      this._currentWeather$.next({
+        state: LoadingState.LOADED,
+        data: currentWeather,
+      });
+      this.cached[StorageKeysEnum.CURRENT_WEATHER] = true;
+    }
+  }
+
+  private loadForecastFromStorage() {
+    const forecast = this.storageService.get<ForecastWeather>(
+      StorageKeysEnum.FORECAST_WEATHER
+    );
+    if (forecast) {
+      this._forecast$.next({
+        state: LoadingState.LOADED,
+        data: forecast,
+      });
+      this.cached[StorageKeysEnum.FORECAST_WEATHER] = true;
+    }
   }
 }

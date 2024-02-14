@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 import {
   CurrentWeather,
   currentWeatherResponseToCurrentWeather,
-} from '../../models/current-weather.model';
+} from '../../models/app/current-weather.model';
 import { CURRENT_RESPONSE } from '../../../assets/MOCKS/current-weather-response.mock';
 
 describe('CurrentMeasurementComponent', () => {

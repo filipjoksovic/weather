@@ -16,6 +16,6 @@
       <app-skeleton></app-skeleton>
     </div>
   } @else if (currentForecast.state === LoadingState.ERROR) {
-    Error occured while fetching the forecast
+    {{ 'FORECAST.MEASUREMENTS.ERROR_MESSAGE' | translate }}
   }
 </ng-container>

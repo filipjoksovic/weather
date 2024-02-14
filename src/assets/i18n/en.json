@@ -1,0 +1,25 @@
+{
+  "GLOBAL": {
+    "RELOAD_LABEL": "Reload"
+  },
+  "LOCATION_DATA": {
+    "DATA_RECEIVED_LABEL": "Data received at {{value}}"
+  },
+  "CURRENT_WEATHER": {
+    "NO_WEATHER_MESSAGE": "No weather data has been received yet",
+
+    "MEASUREMENT": {
+      "ERROR_MESSAGE": "Error occurred when fetching weather"
+    }
+  },
+  "FORECAST": {
+
+    "MEASUREMENTS": {
+      "ERROR_MESSAGE": "Error occurred when fetching the forecast"
+    }
+  },
+
+  "HEADER": {
+    "APP_TITLE": "Weather"
+  }
+}

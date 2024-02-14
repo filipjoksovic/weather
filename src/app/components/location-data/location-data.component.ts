@@ -3,11 +3,12 @@ import { filter, map, tap, zip } from 'rxjs';
 import { LoadingState, WeatherService } from '../../services/weather.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-location-data',
   standalone: true,
-  imports: [NgIf, AsyncPipe, DateFormatPipe],
+  imports: [NgIf, AsyncPipe, DateFormatPipe, TranslateModule],
   templateUrl: './location-data.component.html',
   styleUrl: './location-data.component.scss',
 })

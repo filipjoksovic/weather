@@ -1,0 +1,25 @@
+{
+  "GLOBAL": {
+    "RELOAD_LABEL": "Ponovno naloži"
+  },
+  "LOCATION_DATA": {
+    "DATA_RECEIVED_LABEL": "Pridobljeno {{value}}"
+  },
+  "CURRENT_WEATHER": {
+    "NO_WEATHER_MESSAGE": "Podatki o vremenu še niso prejeti",
+
+    "MEASUREMENT": {
+      "ERROR_MESSAGE": "Pri pridobivanju vremena je prišlo do napake"
+    }
+  },
+  "FORECAST": {
+
+    "MEASUREMENTS": {
+      "ERROR_MESSAGE": "Pri pridobivanju napovedi je prišlo do napake"
+    }
+  },
+
+  "HEADER": {
+    "APP_TITLE": "Vreme"
+  }
+}

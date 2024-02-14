@@ -1,16 +1,15 @@
-app-location-data{
+app-location-data {
   @include container;
+  @include flex-center-column;
   width: 100%;
   max-width: $location-data-max-width;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & .location-name{
+
+  & .location-name {
     color: $primary;
     text-align: center;
   }
 
-  & .location-fetch-date{
+  & .location-fetch-date {
     color: $text-gray-500;
     text-align: center;
 

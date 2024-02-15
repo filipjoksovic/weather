@@ -4,7 +4,6 @@ app-default-layout {
   gap: calc($spacer/2);
   padding: $spacer;
   width: 100%;
-  //max-width: 320px; // TODO move to a variable
   margin: auto;
   margin-top: $header-min-height;
 }

@@ -5,9 +5,9 @@ app-language-picker{
   & select{
     height: 100%;
     padding: .5rem 1rem;
-    background-color: #66CED6;
+    background-color: $secondary;
     border-radius: 1rem;
     outline: none;
-    border: 1px solid #56acb2;
+    border: 1px solid $border-secondary;
   }
 }

@@ -9,13 +9,13 @@ app-current-measurement {
   width: 10rem;
   height:10rem;
   object-fit: contain;
-  background-color: #66CED6; //TODO extract to variable
+  background-color: $secondary; 
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer / 2);
   margin-bottom: calc($spacer / 2);
 
   &__skeleton {
-    background-color: #66CED6; //TODO extract to variable
+    background-color: $secondary; 
     display: block;
     margin: auto;
     width: 10rem;
@@ -30,13 +30,13 @@ app-current-measurement {
   text-align: center;
   font-size: x-large;
   font-weight: bold;
-  background-color: #66CED6; //TODO extract to variable, maybe mixin
+  background-color: $secondary; 
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer / 2);
   margin-bottom: calc($spacer / 2);
 
   &__skeleton {
-    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    background-color: $secondary; 
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
 
@@ -46,12 +46,12 @@ app-current-measurement {
 .current-description {
   text-align: center;
   text-transform: capitalize;
-  background-color: #66CED6; //TODO extract to variable
+  background-color: $secondary; 
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer / 2);
 
   &__skeleton {
-    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    background-color: $secondary; 
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
   }
@@ -59,7 +59,7 @@ app-current-measurement {
 
 .current-minimum {
   text-align: center;
-  background-color: #66CED6;
+  background-color: $secondary;
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer / 2);
   margin-top: calc($spacer / 2);
@@ -68,7 +68,7 @@ app-current-measurement {
   gap: 1rem;
 
   &__skeleton {
-    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    background-color: $secondary; 
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
   }
@@ -76,14 +76,14 @@ app-current-measurement {
 
 .current-maximum {
   text-align: center;
-  background-color: #66CED6;
+  background-color: $secondary;
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer / 2);
   margin-top: calc($spacer / 2);
   white-space: nowrap;
 
   &__skeleton {
-    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    background-color: $secondary; 
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
   }

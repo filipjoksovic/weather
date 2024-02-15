@@ -12,7 +12,7 @@ app-forecast-measurements {
     & app-skeleton {
 
       height: 8rem;
-      background-color: #66CED6;
+      background-color: $secondary;
       margin: auto;
       border-radius: 1rem;
       margin-bottom: calc($spacer/2);
@@ -44,7 +44,7 @@ app-forecast-measurement {
   }
 
   & .measurement-icon {
-    background-color: #66CED6;
+    background-color: $secondary;
     border-radius: 1rem;
     grid-area: icon;
     width: 3rem;
@@ -68,7 +68,7 @@ app-forecast-measurement {
       grid-area: temp-min;
       @include flex-center;
       gap: calc($spacer / 2);
-      background-color: #66CED6;
+      background-color: $secondary;
       border-radius: 1rem;
       padding: .5rem 1rem;
       white-space: nowrap;
@@ -80,7 +80,7 @@ app-forecast-measurement {
       grid-area: temp-max;
       @include flex-center;
       gap: calc($spacer / 2);
-      background-color: #66CED6;
+      background-color: $secondary;
       border-radius: 1rem;
       padding: .5rem 1rem;
       white-space: nowrap;

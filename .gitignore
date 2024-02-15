@@ -43,6 +43,5 @@ Thumbs.db
 
 # Environments
 
-/src/environments/**
 .env
 test-results

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { HeaderComponent } from './components/header/header.component';
 import { DefaultLayoutComponent } from './layout/components/default-layout/default-layout.component';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,7 @@ import { DefaultLayoutComponent } from './layout/components/default-layout/defau
 export class AppComponent {
   title = 'Weather';
 
-  constructor(private readonly translate: TranslateService) {
-    this.translate.setDefaultLang('sl');
-    this.translate.use('sl');
+  constructor(private readonly languageService: LanguageService) {
+    this.languageService.initTranslateService();
   }
 }

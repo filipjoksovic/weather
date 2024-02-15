@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import { LanguageService } from '../../services/language.service';
 import { WeatherService } from '../../services/weather.service';
 
 @Component({
@@ -16,10 +17,12 @@ export class LanguagePickerComponent {
 
   private readonly weatherService = inject(WeatherService);
 
+  private readonly languageService: LanguageService = inject(LanguageService);
+
   public selectedLanguage = this.translateService.currentLang;
 
   languageSelected($event: Event) {
-    this.translateService.use(($event.target as any).value);
+    this.languageService.setDefaultLangage(($event.target as any).value);
     this.weatherService.dispatchReload();
   }
 }

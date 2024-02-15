@@ -1,5 +1,12 @@
-import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  createComponentFactory,
+  mockProvider,
+  Spectator,
+} from '@ngneat/spectator/jest';
+import { TranslateTestingModule } from 'ngx-translate-testing';
 
+import { WeatherService } from '../../services/weather.service';
 import { LanguagePickerComponent } from './language-picker.component';
 
 describe('LanguagePickerComponent', () => {
@@ -8,6 +15,11 @@ describe('LanguagePickerComponent', () => {
     component: LanguagePickerComponent,
     detectChanges: false,
     shallow: false,
+    imports: [
+      TranslateTestingModule.withTranslations({}),
+      HttpClientTestingModule,
+    ],
+    providers: [mockProvider(WeatherService, {})],
   });
 
   beforeEach(() => {

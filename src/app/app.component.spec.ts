@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Spectator } from '@ngneat/spectator';
 import { createComponentFactory } from '@ngneat/spectator/jest';
 import { TranslateTestingModule } from 'ngx-translate-testing';
@@ -8,7 +9,10 @@ describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
   const createComponent = createComponentFactory({
     component: AppComponent,
-    imports: [TranslateTestingModule.withTranslations({})],
+    imports: [
+      TranslateTestingModule.withTranslations({}),
+      HttpClientTestingModule,
+    ],
   });
 
   beforeEach(() => {

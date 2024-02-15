@@ -4,6 +4,7 @@ import {
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
+import { TranslateTestingModule } from 'ngx-translate-testing';
 import { of } from 'rxjs';
 
 import { FORECAST_RESPONSE } from '../../../assets/MOCKS/forecast-weather-response.mock';
@@ -50,7 +51,10 @@ describe('ForecastMeasurementsComponent', () => {
     component: ForecastMeasurementsComponent,
     mocks: [WeatherService],
     providers: [],
-    imports: [HttpClientTestingModule],
+    imports: [
+      HttpClientTestingModule,
+      TranslateTestingModule.withTranslations({}),
+    ],
     shallow: false,
     detectChanges: false,
   });

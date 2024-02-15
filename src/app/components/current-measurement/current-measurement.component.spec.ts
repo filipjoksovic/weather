@@ -4,6 +4,7 @@ import {
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator/jest';
+import { TranslateTestingModule } from 'ngx-translate-testing';
 import { of } from 'rxjs';
 
 import { CURRENT_RESPONSE } from '../../../assets/MOCKS/current-weather-response.mock';
@@ -26,7 +27,10 @@ describe('CurrentMeasurementComponent', () => {
     component: CurrentMeasurementComponent,
     detectChanges: false,
     shallow: false,
-    imports: [HttpClientTestingModule],
+    imports: [
+      HttpClientTestingModule,
+      TranslateTestingModule.withTranslations({}),
+    ],
     providers: [],
     declarations: [],
     mocks: [WeatherService],
@@ -51,7 +55,7 @@ describe('CurrentMeasurementComponent', () => {
     const skeletonContainer = spectator.query(byTestId('loading-container'));
     const skeletonElements = spectator.queryAll('app-skeleton');
     expect(skeletonContainer).toExist();
-    expect(skeletonElements.length).toBe(4);
+    expect(skeletonElements.length).toBe(5);
   });
 
   it('Should display data upon load when data has been loaded', () => {

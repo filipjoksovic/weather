@@ -4,10 +4,11 @@ app-header {
   display: flex;
   align-content: center;
   width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
   box-shadow: $box-shadow;
   padding-inline: $spacer;
+  z-index: 1;
 
   & .header-title {
     margin-block: auto;

@@ -3,6 +3,9 @@ app-forecast-measurements {
   @include container;
 }
 
+.forecast-container{
+  container: sidebar/inline-size;
+}
 
 app-forecast-measurement {
   display: grid;
@@ -51,7 +54,7 @@ app-forecast-measurement {
   }
 }
 
-@media only screen and (max-width: $location-data-max-width) {
+@container (max-width: 200px) {
   app-forecast-measurement {
     padding: $spacer;
     grid-template-areas:"icon icon"

@@ -3,6 +3,7 @@ app-header {
   background-color: $primary;
   display: flex;
   align-content: center;
+  justify-content: space-between;
   width: 100%;
   position: fixed;
   top: 0;
@@ -14,6 +15,10 @@ app-header {
     margin-block: auto;
     font-weight: bold;
     font-size: larger;
+  }
+
+  & app-language-picker{
+    margin-block: auto;
   }
 }
 

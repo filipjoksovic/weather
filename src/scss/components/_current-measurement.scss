@@ -3,20 +3,55 @@ app-current-measurement{
   @include container;
 }
 
+.current-container{
+  padding:$spacer;
+  border-radius: calc($spacer/2);
+}
+.current-icon{
+  display: block;
+  margin: auto;
+  width: 10rem;
+  height: 10rem;
+  object-fit: contain;
+  background-color: #66CED6; //TODO extract to variable
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer/2);
+  margin-bottom: calc($spacer / 2);
+
+}
 .current-temperature{
   text-align: center;
   font-size: x-large;
   font-weight: bold;
+  background-color: #66CED6; //TODO extract to variable, maybe mixin
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer/2);
+  margin-bottom: calc($spacer / 2);
+
 }
 
 .current-description{
   text-align: center;
+  text-transform: capitalize;
+  background-color: #66CED6; //TODO extract to variable
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer/2);
 }
 
 .current-minimum{
   text-align: center;
+  background-color: #66CED6;
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer/2);
+  margin-top: calc($spacer / 2);
+  white-space: nowrap;
 }
 
 .current-maximum{
   text-align: center;
+  background-color: #66CED6;
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer/2);
+  margin-top: calc($spacer / 2);
+  white-space: nowrap;
 }

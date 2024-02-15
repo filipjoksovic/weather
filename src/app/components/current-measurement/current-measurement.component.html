@@ -7,7 +7,17 @@
       <app-skeleton></app-skeleton>
     </div>
   } @else if (currentWeather.state === LoadingState.LOADED) {
-    <div data-testid="data-container">
+    <div class="current-container" data-testid="data-container">
+      <!--      TODO this can be extracted in a spearate component-->
+      <img
+        class="current-icon"
+        data-testid="weather-icon"
+        [src]="
+          'https://openweathermap.org/img/wn/' +
+          currentWeather.data.weatherConditions.icon +
+          '@2x.png'
+        "
+        alt="Weather icon" />
       <p class="current-temperature" data-testid="current-temperature">
         {{ currentWeather.data.weatherMeasurements.temperature }}
       </p>

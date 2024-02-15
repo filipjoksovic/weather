@@ -2,6 +2,8 @@ app-forecast-measurements {
   @include flex-center-column;
   @include container;
   height: 100%;
+  padding: 0;
+  overflow-y: scroll;
 }
 
 .forecast-container {
@@ -12,12 +14,14 @@ app-forecast-measurements {
 app-forecast-measurement {
   display: grid;
   width: 100%;
+  padding: 1rem;
 
   grid-template-areas:"icon  weather-condition weather-condition date"
                        "temp-min temp-min temp-max temp-max";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: calc($spacer / 2);
   align-items: center;
-  justify-content: start; //todo align to center when on smaller screens
+  justify-content: start;
 
 
   &:not(:last-child) {
@@ -26,6 +30,8 @@ app-forecast-measurement {
   }
 
   & .measurement-icon {
+    background-color: #66CED6;
+    border-radius: 1rem;
     grid-area: icon;
     width: 3rem;
     height: 3rem;
@@ -39,7 +45,8 @@ app-forecast-measurement {
 
   & .measurement-weather-name {
     grid-area: weather-condition;
-    text-align: center;
+    text-align: start;
+    text-transform: capitalize;
   }
 
   & .temperature-data {
@@ -47,17 +54,30 @@ app-forecast-measurement {
       grid-area: temp-min;
       @include flex-center;
       gap: calc($spacer / 2);
+      background-color: #66CED6;
+      border-radius: 1rem;
+      padding: .5rem 1rem;
+      white-space: nowrap;
+
+
     }
 
     &__maximum {
       grid-area: temp-max;
       @include flex-center;
       gap: calc($spacer / 2);
+      background-color: #66CED6;
+      border-radius: 1rem;
+      padding: .5rem 1rem;
+      white-space: nowrap;
+
     }
   }
 }
 
-@container (max-width: 200px) {
+
+
+@container (max-width: 250px) {
   app-forecast-measurement {
     padding: $spacer;
     grid-template-areas:"icon icon"
@@ -66,6 +86,7 @@ app-forecast-measurement {
     "temp-min temp-max";
     align-items: center;
     justify-content: center;
+    grid-template-columns: 1fr 1fr;
 
     & .measurement-icon {
       display: block;
@@ -77,18 +98,56 @@ app-forecast-measurement {
     & .measurement-date {
       text-align: center;
     }
+
+    & .measurement-weather-name {
+      text-align: center;
+    }
+
+    & .temperature-data {
+      &__minimum {
+        grid-area: temp-min;
+        @include flex-center;
+        gap: calc($spacer / 2);
+        padding: .25rem .5rem;
+
+
+      }
+
+      &__maximum {
+        grid-area: temp-max;
+        @include flex-center;
+        gap: calc($spacer / 2);
+        padding: .25rem .5rem;
+
+      }
+    }
   }
 
 }
 
+@container (max-width: 190px) {
+  app-forecast-measurement {
+    grid-template-areas:"icon icon"
+    "weather-condition weather-condition"
+    "date date"
+    "temp-min temp-min"
+    "temp-max temp-max"
+  ;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media only screen and (max-width: $location-data-max-width) {
-  .forecast-container{
+  .forecast-container {
     overflow-y: unset;
   }
   app-forecast-measurements {
 
     height: unset;
     overflow-y: unset;
+
   }
 
 

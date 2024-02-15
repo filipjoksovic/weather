@@ -18,6 +18,16 @@ app-current-measurement{
   padding: calc($spacer / 4) calc($spacer/2);
   margin-bottom: calc($spacer / 2);
 
+  &__skeleton{
+    background-color: #66CED6; //TODO extract to variable
+    display: block;
+    margin: auto;
+    width: 10rem;
+    height: 10rem;
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
+
 }
 .current-temperature{
   text-align: center;
@@ -28,6 +38,12 @@ app-current-measurement{
   padding: calc($spacer / 4) calc($spacer/2);
   margin-bottom: calc($spacer / 2);
 
+  &__skeleton{
+    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+
+  }
 }
 
 .current-description{
@@ -36,6 +52,11 @@ app-current-measurement{
   background-color: #66CED6; //TODO extract to variable
   border-radius: $spacer;
   padding: calc($spacer / 4) calc($spacer/2);
+  &__skeleton{
+    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
 }
 
 .current-minimum{
@@ -45,6 +66,11 @@ app-current-measurement{
   padding: calc($spacer / 4) calc($spacer/2);
   margin-top: calc($spacer / 2);
   white-space: nowrap;
+  &__skeleton{
+    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
 }
 
 .current-maximum{
@@ -54,4 +80,9 @@ app-current-measurement{
   padding: calc($spacer / 4) calc($spacer/2);
   margin-top: calc($spacer / 2);
   white-space: nowrap;
+  &__skeleton{
+    background-color: #66CED6; //TODO extract to variable, maybe mixin
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
 }

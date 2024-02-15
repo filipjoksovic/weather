@@ -1,14 +1,18 @@
 <ng-container *ngIf="currentWeatherState$ | async as currentWeather">
+  <h2>Current weather</h2>
   @if (currentWeather.state === LoadingState.LOADING) {
-    <div class="current-loading" data-testid="loading-container">
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
+    <div class="current-loading m-auto" data-testid="loading-container">
+      <app-skeleton class="current-icon__skeleton"></app-skeleton>
+      <app-skeleton class="current-temperature__skeleton"></app-skeleton>
+      <app-skeleton class="current-description__skeleton"></app-skeleton>
+      <div class="flex gap-1">
+        <app-skeleton class="current-minimum__skeleton"></app-skeleton>
+        <app-skeleton class="current-maximum__skeleton"></app-skeleton>
+      </div>
     </div>
   } @else if (currentWeather.state === LoadingState.LOADED) {
-    <div class="current-container" data-testid="data-container">
-      <!--      TODO this can be extracted in a spearate component-->
+    <div class="current-container m-auto" data-testid="data-container">
+      <!--      TODO this icon can be extracted in a spearate component-->
       <img
         class="current-icon"
         data-testid="weather-icon"

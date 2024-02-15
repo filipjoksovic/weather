@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, map, Subject, take, tap } from 'rxjs';
+import { BehaviorSubject, map, of, Subject, take, tap } from 'rxjs';
 
+import { CURRENT_RESPONSE } from '../../assets/MOCKS/current-weather-response.mock';
+import { FORECAST_RESPONSE } from '../../assets/MOCKS/forecast-weather-response.mock';
 import { environment } from '../../environments/environment';
 import { exhaustiveTypeCheck } from '../helpers/exhaustive-type-check';
 import { removeThreeHourIntervals } from '../helpers/remove-three-hour-intervals';
@@ -102,6 +104,27 @@ export class WeatherService {
       lang: this.translate.currentLang,
     });
 
+    return of(CURRENT_RESPONSE)
+      .pipe(
+        map(currentWeatherResponseToCurrentWeather),
+        tap({
+          next: response => {
+            this.storageService.set(StorageKeysEnum.CURRENT_WEATHER, response);
+            this._currentWeather$.next({
+              state: LoadingState.LOADED,
+              data: response,
+            });
+          },
+          error: () => {
+            this._currentWeather$.next({
+              state: LoadingState.ERROR,
+            });
+          },
+        }),
+        take(1)
+      )
+      .subscribe();
+
     return this.httpClient
       .get<CurrentWeatherResponse>(
         `https://api.openweathermap.org/data/2.5/weather`,
@@ -144,6 +167,28 @@ export class WeatherService {
       units: 'metric',
       lang: this.translate.currentLang,
     });
+
+    return of(FORECAST_RESPONSE)
+      .pipe(
+        map(forecastWeatherResponseToForecastWeather),
+        map(removeThreeHourIntervals),
+        tap({
+          next: response => {
+            this.storageService.set(StorageKeysEnum.FORECAST_WEATHER, response);
+            this._forecast$.next({
+              state: LoadingState.LOADED,
+              data: response,
+            });
+          },
+          error: () => {
+            this._forecast$.next({
+              state: LoadingState.ERROR,
+            });
+          },
+        }),
+        take(1)
+      )
+      .subscribe();
 
     return this.httpClient
       .get<ForecastWeatherResponse>(

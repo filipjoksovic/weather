@@ -1,15 +1,18 @@
 app-forecast-measurements {
   @include flex-center-column;
   @include container;
+  height: 100%;
 }
 
-.forecast-container{
+.forecast-container {
   container: sidebar/inline-size;
+  overflow-y: scroll;
 }
 
 app-forecast-measurement {
   display: grid;
   width: 100%;
+
   grid-template-areas:"icon  weather-condition weather-condition date"
                        "temp-min temp-min temp-max temp-max";
   gap: calc($spacer / 2);
@@ -75,5 +78,18 @@ app-forecast-measurement {
       text-align: center;
     }
   }
+
+}
+
+@media only screen and (max-width: $location-data-max-width) {
+  .forecast-container{
+    overflow-y: unset;
+  }
+  app-forecast-measurements {
+
+    height: unset;
+    overflow-y: unset;
+  }
+
 
 }

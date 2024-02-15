@@ -1,23 +1,24 @@
 app-default-layout {
   @include flex-center-column;
   flex-grow: 1;
-  gap: $spacer;
+  gap: calc($spacer/2);
   padding: $spacer;
   width: 100%;
-  //max-width: 320px; // TODO move to a variable
   margin: auto;
+  margin-top: $header-min-height;
 }
 
 .measurements-container {
   display: flex;
   justify-content: space-around;
   flex-grow: 1;
-  flex-wrap: wrap;
-  gap: $spacer;
+  gap: calc($spacer/2);
   width: 100%;
 
   & > * {
-    flex: 1;
+    flex: 1 1 0;
+    flex-basis: 100%;
+
   }
 }
 
@@ -33,6 +34,7 @@ app-default-layout {
 
 @media only screen and (min-width: $md) and (min-height: $md) {
   app-default-layout {
-    $padding: $spacer * 2;
+    padding: $spacer * 2;
+    margin-top:$header-min-height-lg
   }
 }

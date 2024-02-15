@@ -1,20 +1,34 @@
 <ng-container *ngIf="currentWeatherState$ | async as currentWeather">
+  <h2 class="text-center">{{ 'GLOBAL.CURRENT_WEATHER_LABEL' | translate }}</h2>
   @if (currentWeather.state === LoadingState.LOADING) {
-    <div class="current-loading" data-testid="loading-container">
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
+    <div class="current-loading m-auto" data-testid="loading-container">
+      <app-skeleton class="current-icon__skeleton"></app-skeleton>
+      <app-skeleton class="current-temperature__skeleton"></app-skeleton>
+      <app-skeleton class="current-description__skeleton"></app-skeleton>
+      <div class="flex gap-1">
+        <app-skeleton class="current-minimum__skeleton"></app-skeleton>
+        <app-skeleton class="current-maximum__skeleton"></app-skeleton>
+      </div>
     </div>
   } @else if (currentWeather.state === LoadingState.LOADED) {
-    <div data-testid="data-container">
+    <div class="current-container m-auto" data-testid="data-container">
+      <!--      TODO this icon can be extracted in a spearate component-->
+      <img
+        class="current-icon"
+        data-testid="weather-icon"
+        [src]="
+          'https://openweathermap.org/img/wn/' +
+          currentWeather.data.weatherConditions.icon +
+          '@2x.png'
+        "
+        alt="Weather icon" />
       <p class="current-temperature" data-testid="current-temperature">
         {{ currentWeather.data.weatherMeasurements.temperature }}
       </p>
       <p class="current-description" data-testid="current-description">
         {{ currentWeather.data.weatherConditions.description }}
       </p>
-      <div class="flex gap-1">
+      <div class="flex gap-1 mx-auto justify-center">
         <p class="current-minimum" data-testid="current-minimum">
           <fa-icon [icon]="faArrowDown" />{{
             currentWeather.data.weatherMeasurements.temperatureMin

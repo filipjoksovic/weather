@@ -1,19 +1,22 @@
 <ng-container *ngIf="currentForecastState$ | async as currentForecast">
+  <h2 class="mt-2 text-center">
+    {{ 'GLOBAL.FIVE_DAY_FORECAST_LABEL' | translate }}
+  </h2>
   @if (currentForecast.state === LoadingState.LOADED) {
-    <div data-testid="data-container">
+    <div class="w-100" data-testid="data-container">
       @for (forecast of currentForecast.data.measurements; track $index) {
         <app-forecast-measurement
           [measurement]="forecast"></app-forecast-measurement>
       }
     </div>
   } @else if (currentForecast.state === LoadingState.LOADING) {
-    <div data-testid="skeleton-container">
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
-      <app-skeleton></app-skeleton>
+    <div class="skeleton-container" data-testid="skeleton-container">
+      <app-skeleton class="measurement-loading"></app-skeleton>
+      <app-skeleton class="measurement-loading"></app-skeleton>
+      <app-skeleton class="measurement-loading"></app-skeleton>
+      <app-skeleton class="measurement-loading"></app-skeleton>
+      <app-skeleton class="measurement-loading"></app-skeleton>
+      <app-skeleton class="measurement-loading"></app-skeleton>
     </div>
   } @else if (currentForecast.state === LoadingState.ERROR) {
     {{ 'FORECAST.MEASUREMENTS.ERROR_MESSAGE' | translate }}

@@ -3,16 +3,22 @@ app-header {
   background-color: $primary;
   display: flex;
   align-content: center;
+  justify-content: space-between;
   width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
   box-shadow: $box-shadow;
   padding-inline: $spacer;
+  z-index: 1;
 
   & .header-title {
     margin-block: auto;
     font-weight: bold;
     font-size: larger;
+  }
+
+  & app-language-picker{
+    margin-block: auto;
   }
 }
 

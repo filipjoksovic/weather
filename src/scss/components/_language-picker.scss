@@ -1,0 +1,13 @@
+app-language-picker{
+  height: 100%;
+  display: block;
+
+  & select{
+    height: 100%;
+    padding: .5rem 1rem;
+    background-color: $secondary;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid $border-secondary;
+  }
+}

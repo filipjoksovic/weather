@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,7 @@ import { SkeletonComponent } from '../skeleton/skeleton.component';
     SkeletonComponent,
     FaIconComponent,
     TranslateModule,
+    JsonPipe,
   ],
   templateUrl: './current-measurement.component.html',
 })

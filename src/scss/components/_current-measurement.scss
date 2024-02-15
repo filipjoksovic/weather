@@ -1,24 +1,20 @@
-app-current-measurement{
-  @include flex-center-column;
+app-current-measurement {
+  @include flex-column;
   @include container;
 }
 
-.current-container{
-  padding:$spacer;
-  border-radius: calc($spacer/2);
-}
-.current-icon{
+.current-icon {
   display: block;
   margin: auto;
   width: 10rem;
-  height: 10rem;
+  height:10rem;
   object-fit: contain;
   background-color: #66CED6; //TODO extract to variable
   border-radius: $spacer;
-  padding: calc($spacer / 4) calc($spacer/2);
+  padding: calc($spacer / 4) calc($spacer / 2);
   margin-bottom: calc($spacer / 2);
 
-  &__skeleton{
+  &__skeleton {
     background-color: #66CED6; //TODO extract to variable
     display: block;
     margin: auto;
@@ -29,16 +25,17 @@ app-current-measurement{
   }
 
 }
-.current-temperature{
+
+.current-temperature {
   text-align: center;
   font-size: x-large;
   font-weight: bold;
   background-color: #66CED6; //TODO extract to variable, maybe mixin
   border-radius: $spacer;
-  padding: calc($spacer / 4) calc($spacer/2);
+  padding: calc($spacer / 4) calc($spacer / 2);
   margin-bottom: calc($spacer / 2);
 
-  &__skeleton{
+  &__skeleton {
     background-color: #66CED6; //TODO extract to variable, maybe mixin
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
@@ -46,43 +43,63 @@ app-current-measurement{
   }
 }
 
-.current-description{
+.current-description {
   text-align: center;
   text-transform: capitalize;
   background-color: #66CED6; //TODO extract to variable
   border-radius: $spacer;
-  padding: calc($spacer / 4) calc($spacer/2);
-  &__skeleton{
+  padding: calc($spacer / 4) calc($spacer / 2);
+
+  &__skeleton {
     background-color: #66CED6; //TODO extract to variable, maybe mixin
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
   }
 }
 
-.current-minimum{
+.current-minimum {
   text-align: center;
   background-color: #66CED6;
   border-radius: $spacer;
-  padding: calc($spacer / 4) calc($spacer/2);
+  padding: calc($spacer / 4) calc($spacer / 2);
   margin-top: calc($spacer / 2);
   white-space: nowrap;
-  &__skeleton{
+  display: flex;
+  gap: 1rem;
+
+  &__skeleton {
     background-color: #66CED6; //TODO extract to variable, maybe mixin
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
   }
 }
 
-.current-maximum{
+.current-maximum {
   text-align: center;
   background-color: #66CED6;
   border-radius: $spacer;
-  padding: calc($spacer / 4) calc($spacer/2);
+  padding: calc($spacer / 4) calc($spacer / 2);
   margin-top: calc($spacer / 2);
   white-space: nowrap;
-  &__skeleton{
+
+  &__skeleton {
     background-color: #66CED6; //TODO extract to variable, maybe mixin
     border-radius: $spacer;
     margin-bottom: calc($spacer / 2);
+  }
+}
+
+@media only screen and (max-width: 391px){
+  app-current-measurement {
+    .current-icon {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    &  div.flex {
+      margin-top:$spacer;
+      flex-direction: column;
+      gap:calc($spacer / 2);
+    }
   }
 }

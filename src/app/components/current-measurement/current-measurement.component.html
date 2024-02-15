@@ -1,5 +1,5 @@
 <ng-container *ngIf="currentWeatherState$ | async as currentWeather">
-  <h2>{{ 'GLOBAL.CURRENT_WEATHER_LABEL' | translate }}</h2>
+  <h2 class="text-center">{{ 'GLOBAL.CURRENT_WEATHER_LABEL' | translate }}</h2>
   @if (currentWeather.state === LoadingState.LOADING) {
     <div class="current-loading m-auto" data-testid="loading-container">
       <app-skeleton class="current-icon__skeleton"></app-skeleton>
@@ -28,7 +28,7 @@
       <p class="current-description" data-testid="current-description">
         {{ currentWeather.data.weatherConditions.description }}
       </p>
-      <div class="flex gap-1">
+      <div class="flex gap-1 mx-auto justify-center">
         <p class="current-minimum" data-testid="current-minimum">
           <fa-icon [icon]="faArrowDown" />{{
             currentWeather.data.weatherMeasurements.temperatureMin

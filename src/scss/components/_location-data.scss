@@ -3,7 +3,7 @@ app-location-data {
   @include flex-center-column;
   width: 100%;
   max-width: $location-data-max-width;
-
+  gap:$spacer;
   & .location-name {
     color: $primary;
     text-align: center;

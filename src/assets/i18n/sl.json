@@ -1,6 +1,8 @@
 {
   "GLOBAL": {
-    "RELOAD_LABEL": "Ponovno naloži"
+    "RELOAD_LABEL": "Ponovno naloži",
+    "CURRENT_WEATHER_LABEL": "Trenutno vreme",
+    "FIVE_DAY_FORECAST_LABEL": "5-dnevna napoved"
   },
   "LOCATION_DATA": {
     "DATA_RECEIVED_LABEL": "Pridobljeno {{value}}"

@@ -1,22 +1,105 @@
-app-current-measurement{
-  @include flex-center-column;
+app-current-measurement {
+  @include flex-column;
   @include container;
 }
 
-.current-temperature{
+.current-icon {
+  display: block;
+  margin: auto;
+  width: 10rem;
+  height:10rem;
+  object-fit: contain;
+  background-color: $secondary; 
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer / 2);
+  margin-bottom: calc($spacer / 2);
+
+  &__skeleton {
+    background-color: $secondary; 
+    display: block;
+    margin: auto;
+    width: 10rem;
+    height: 10rem;
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
+
+}
+
+.current-temperature {
   text-align: center;
   font-size: x-large;
   font-weight: bold;
+  background-color: $secondary; 
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer / 2);
+  margin-bottom: calc($spacer / 2);
+
+  &__skeleton {
+    background-color: $secondary; 
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+
+  }
 }
 
-.current-description{
+.current-description {
   text-align: center;
+  text-transform: capitalize;
+  background-color: $secondary; 
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer / 2);
+
+  &__skeleton {
+    background-color: $secondary; 
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
 }
 
-.current-minimum{
+.current-minimum {
   text-align: center;
+  background-color: $secondary;
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer / 2);
+  margin-top: calc($spacer / 2);
+  white-space: nowrap;
+  display: flex;
+  gap: 1rem;
+
+  &__skeleton {
+    background-color: $secondary; 
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
 }
 
-.current-maximum{
+.current-maximum {
   text-align: center;
+  background-color: $secondary;
+  border-radius: $spacer;
+  padding: calc($spacer / 4) calc($spacer / 2);
+  margin-top: calc($spacer / 2);
+  white-space: nowrap;
+
+  &__skeleton {
+    background-color: $secondary; 
+    border-radius: $spacer;
+    margin-bottom: calc($spacer / 2);
+  }
+}
+
+@media only screen and (max-width: 391px){
+  app-current-measurement {
+    .current-icon {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    &  div.flex {
+      margin-top:$spacer;
+      flex-direction: column;
+      gap:calc($spacer / 2);
+    }
+  }
 }

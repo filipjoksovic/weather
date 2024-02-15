@@ -12,11 +12,11 @@ function initComponent(spectator: Spectator<ForecastMeasurementComponent>) {
   spectator.setInput('measurement', {
     dateTime: new Date(),
     weatherMeasurements: {
-      feelsLike: 1,
-      humidity: 1,
-      temperature: 1,
-      temperatureMax: 2,
-      temperatureMin: 3,
+      feelsLike: '1',
+      humidity: '1',
+      temperature: '1',
+      temperatureMax: '2',
+      temperatureMin: '3',
     },
     dayDuration: {
       sunrise: new Date(),

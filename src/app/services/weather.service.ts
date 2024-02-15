@@ -186,6 +186,8 @@ export class WeatherService {
         data: currentWeather,
       });
       this.cached[StorageKeysEnum.CURRENT_WEATHER] = true;
+    } else {
+      this.cached[StorageKeysEnum.CURRENT_WEATHER] = false;
     }
   }
 
@@ -199,6 +201,8 @@ export class WeatherService {
         data: forecast,
       });
       this.cached[StorageKeysEnum.FORECAST_WEATHER] = true;
+    } else {
+      this.cached[StorageKeysEnum.FORECAST_WEATHER] = false;
     }
   }
 }

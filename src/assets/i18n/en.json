@@ -1,6 +1,8 @@
 {
   "GLOBAL": {
-    "RELOAD_LABEL": "Reload"
+    "RELOAD_LABEL": "Reload",
+    "CURRENT_WEATHER_LABEL": "Current weather",
+    "FIVE_DAY_FORECAST_LABEL": "5 Day Forecast"
   },
   "LOCATION_DATA": {
     "DATA_RECEIVED_LABEL": "Data received at {{value}}"

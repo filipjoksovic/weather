@@ -87,14 +87,7 @@ export class DefaultLayoutComponent implements OnInit, AfterContentChecked {
           this.renderer.setStyle(
             element,
             'height',
-            `${
-              screenHeight -
-              headerHeight! -
-              padding -
-              locationHeight! -
-              padding / 2 -
-              padding
-            }px`
+            `${screenHeight - headerHeight! - locationHeight! - padding / 2 - padding - padding}px`
           );
           this.renderer.setStyle(element, 'overflow-y', 'scroll');
         });

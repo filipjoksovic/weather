@@ -1,5 +1,5 @@
 <ng-container *ngIf="currentWeatherState$ | async as currentWeather">
-  <h2>Current weather</h2>
+  <h2>{{ 'GLOBAL.CURRENT_WEATHER_LABEL' | translate }}</h2>
   @if (currentWeather.state === LoadingState.LOADING) {
     <div class="current-loading m-auto" data-testid="loading-container">
       <app-skeleton class="current-icon__skeleton"></app-skeleton>

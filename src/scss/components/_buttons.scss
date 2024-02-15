@@ -1,0 +1,17 @@
+.btn{
+  border: none;
+  outline: none;
+  padding: .5rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  &__primary{
+    background-color: #66CED6;
+    border: 1px solid #56acb2;
+    transition: 250ms ease-in-out background-color;
+
+    &:hover{
+      background-color: #56acb2;
+
+    }
+  }
+}
